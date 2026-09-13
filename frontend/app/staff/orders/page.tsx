@@ -13,12 +13,13 @@ export default function StaffOrders(){
     try{ const d:any=await api.get('/orders'); const list=d.data||d.orders||d; setOrders(Array.isArray(list)?list:[])}catch(e:any){ setErr(e.message)} finally{ setLoading(false)}
   }
   useEffect(()=>{ load();
+    let s:any=null;
     try{
-      const s=getSocket();
+      s=getSocket(); if(!s) return;
       s.on('order:created',(p:any)=>setOrders(prev=>[p,...prev]));
       s.on('order:update',(p:any)=>setOrders(prev=>prev.map(o=> (o.id===p.id||o._id===p.id)?{...o,...p}:o)));
-      return ()=>{ s.off('order:created'); s.off('order:update')}
     }catch{}
+    return ()=>{ try{ s?.off('order:created'); s?.off('order:update')}catch{} }
   },[]);
   async function updateStatus(id:string, status:string){
     try{ await api.put(`/orders/${id}/status`,{status}); }catch{

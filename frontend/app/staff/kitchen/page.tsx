@@ -18,7 +18,7 @@ export default function Kitchen(){
     load();
     let sock:any=null;
     try{
-      sock=getSocket();
+      sock=getSocket(); if(!sock) { const id=setInterval(load,10000); return ()=>clearInterval(id); }
       const onCreated=(p:any)=> setOrders(prev=>[p,...prev]);
       const onUpdate=(p:any)=>{
         setOrders(prev=>{

@@ -24,14 +24,15 @@ function OrdersInner(){
     }catch(e:any){ setErr(e.message)} finally{ setLoading(false)}
   }
   useEffect(()=>{ load();
+    let s:any=null;
     try{
-      const s=getSocket();
+      s=getSocket(); if(!s) return;
       s.on('order:update',(payload:any)=>{
         setOrders(prev=> prev.map(o=> o.id===payload.id||o._id===payload.id ? {...o, ...payload}: o));
       });
       s.on('order:created',(payload:any)=> setOrders(prev=>[payload,...prev]));
-      return ()=>{ s.off('order:update'); s.off('order:created'); }
     }catch{}
+    return ()=>{ try{ s?.off('order:update'); s?.off('order:created'); }catch{} }
   },[]);
   if(loading) return <div className="mx-auto max-w-3xl px-4 py-6"><Loading/></div>;
   if(err) return <div className="mx-auto max-w-3xl px-4 py-6"><ErrorBox msg={err} onRetry={load}/></div>;
