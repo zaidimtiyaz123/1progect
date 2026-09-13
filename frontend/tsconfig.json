@@ -5,7 +5,7 @@
     "resolveJsonModule":true,"isolatedModules":true,"jsx":"preserve","incremental":true,
     "plugins":[{"name":"next"}],
     "paths":{"@/*":["./*"]},
-    "baseUrl":".","ignoreDeprecations":"6.0"
+    "baseUrl":".","ignoreDeprecations":"5.0"
   },
   "include":["next-env.d.ts","**/*.ts","**/*.tsx",".next/types/**/*.ts"],
   "exclude":["node_modules"]
