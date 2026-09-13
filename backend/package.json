@@ -4,10 +4,12 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsc",
+    "build": "prisma generate && tsc",
+    "postinstall": "prisma generate",
     "start": "node dist/index.js",
     "db:generate": "prisma generate",
     "db:push": "prisma db push",
+    "db:migrate": "prisma migrate deploy",
     "db:seed": "tsx prisma/seed.ts",
     "test": "vitest run"
   },
@@ -38,5 +40,8 @@
     "@types/multer": "^1.4.12",
     "tsx": "^4.19.1",
     "vitest": "^2.1.8"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }

@@ -296,20 +296,22 @@ io.on('connection', (socket)=>{
   socket.on('disconnect', (reason)=> console.log('[socket] disconnected', socket.id, reason));
 });
 
-httpServer.listen(PORT, ()=> {
-  console.log('[api] listening on http://localhost:'+PORT);
-  console.log('[api] health -> http://localhost:'+PORT+'/api/health');
-  // ensure default restaurant
-  (async()=>{
-    try{
-      const count=await prisma.restaurant.count();
-      if(count===0){
-        const r=await prisma.restaurant.create({ data:{ name:'RestaurantOS Demo', address:'Demo Street 1', phone:'9999999999' }});
-        console.log('[api] created default restaurant', r.id);
-      }
-    }catch(e){ console.warn('[api] ensure restaurant failed', e); }
-  })();
-});
+if (!process.env.VERCEL) {
+  httpServer.listen(PORT, ()=> {
+    console.log('[api] listening on http://localhost:'+PORT);
+    console.log('[api] health -> http://localhost:'+PORT+'/api/health');
+    // ensure default restaurant
+    (async()=>{
+      try{
+        const count=await prisma.restaurant.count();
+        if(count===0){
+          const r=await prisma.restaurant.create({ data:{ name:'RestaurantOS Demo', address:'Demo Street 1', phone:'9999999999' }});
+          console.log('[api] created default restaurant', r.id);
+        }
+      }catch(e){ console.warn('[api] ensure restaurant failed', e); }
+    })();
+  });
+}
 
 async function shutdown(signal:string){
   console.log('[api] '+signal+' shutting down');

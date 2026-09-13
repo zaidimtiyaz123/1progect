@@ -1,8 +1,11 @@
 node_modules
 .next
-prisma/*.db
-prisma/*.db-journal
+dist
 .env
 .env.local
-dist
+.env.production
+prisma/*.db
+prisma/*.db-journal
 .DS_Store
+out
+coverage
