@@ -25,7 +25,7 @@ export default function Home(){
             <div className="card p-2 rotate-1 shadow-2xl">
               <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80" alt="restaurant" className="rounded-xl h-[360px] w-full object-cover"/>
               <div className="p-4 flex items-center justify-between">
-                <div><div className="font-semibold">Chef\'s Tasting Table</div><div className="text-sm text-zinc-500">Tonight 7:30 PM • 4 guests</div></div>
+                <div><div className="font-semibold">Chef&apos;s Tasting Table</div><div className="text-sm text-zinc-500">Tonight 7:30 PM • 4 guests</div></div>
                 <Link href="/book" className="btn btn-primary !py-2">Reserve</Link>
               </div>
             </div>
